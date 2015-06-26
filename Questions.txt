@@ -1,0 +1,11 @@
+1. When I put StandardScaler into the pipeline, I don't need to perform
+StandardScaler.fit_transform(features)? The pipeline will perform fit and 
+transform automatically?
+
+2. I want to improve precision_score, recall_score and f1_score. How can I do it by chaning scoring in GridSearchCV?
+
+3. Why my random forest classifier run so slow for such a small dataset? It takes
+
+4. In tester.py provided, folds parameter seems to be useless.
+
+5. In GridSearchCV, why I cannot achieve the best score using the best parameters?

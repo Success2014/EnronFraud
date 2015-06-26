@@ -1,0 +1,7 @@
+1. http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
+2. http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html
+3. http://scikit-learn.org/stable/modules/generated/sklearn.metrics.make_scorer.html
+4. http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html
+5. http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+6. https://github.com/kingkastle/identifying-fraud-from-enron-email
+7. http://fch808.github.io/Identifying_Fraud_at_Enron.html
