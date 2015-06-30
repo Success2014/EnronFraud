@@ -12,50 +12,70 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 
 from feature_engi import addFeatures, selectKFeatures
-from remove_outlier import removeOutliers
+from data_mani import show_data, data_explore, removeOutliers
 from tune_parameter import tune_parameter_values
 from my_tester import mytest_classifier, dump_classifier_and_data
 
+print "============================="
 ### Task 1: Select what features you'll use.
 ### features_list is a list of strings, each of which is a feature name.
 ### The first feature must be "poi".
-features_list = ['poi', 'bonus', 'deferral_payments', 'deferred_income',\
-                'director_fees', 'exercised_stock_options', 'expenses',\
-                'from_messages','from_poi_to_this_person',\
-                'from_this_person_to_poi',\
-                'loan_advances', 'long_term_incentive', 'other',\
-                'restricted_stock', 'restricted_stock_deferred',\
-                'salary', 'shared_receipt_with_poi', 'to_messages',\
-                'total_payments', 'total_stock_value', 'hasEmail',\
-                'fromPoiRatio', 'toPoiRatio']                
+
+
 
 ### Load the dictionary containing the dataset
 data_dict = pickle.load(open("final_project_dataset.pkl", "r") )
 
+### Exploring and Understanding the dataset
+data_explore(data_dict)
+show_data(data_dict, "Before Removing Outliers", 'total_payments', 'to_messages')
+
+print "============================="
 ### Task 2: Remove outliers
 my_dataset = data_dict
 my_dataset = removeOutliers(my_dataset)
-
+show_data(data_dict, "After Removing Outliers", 'total_payments', 'to_messages')
 print "============================="
 
 ### Task 3: Create new feature(s)
 ### Store to my_dataset for easy export below.
-my_dataset = addFeatures(my_dataset)
+
+Add_Features_Flag = True
+
+if Add_Features_Flag:
+
+    my_dataset = addFeatures(my_dataset)
+    poi_lable = ['poi']
+    financial_features = ['bonus', 'deferral_payments', 'deferred_income',\
+                    'director_fees', 'exercised_stock_options', 'expenses',\
+                    'loan_advances', 'long_term_incentive', 'other',\
+                    'restricted_stock', 'restricted_stock_deferred',\
+                    'salary','total_stock_value','total_payments']
+    email_features = ['from_messages','from_poi_to_this_person',\
+                    'from_this_person_to_poi','shared_receipt_with_poi', \
+                     'to_messages', 'hasEmail', 'fromPoiRatio', 'toPoiRatio']                
+    features_list = poi_lable + financial_features + email_features
+    print "{0} features will be used in the machine learning \
+            algorithm including new created features.".format(len(features_list))
+    show_data(data_dict, "Adding new features", 'toPoiRatio', 'fromPoiRatio')
+
+else:
+    poi_lable = ['poi']
+    financial_features = ['bonus', 'deferral_payments', 'deferred_income',\
+                    'director_fees', 'exercised_stock_options', 'expenses',\
+                    'loan_advances', 'long_term_incentive', 'other',\
+                    'restricted_stock', 'restricted_stock_deferred',\
+                    'salary','total_stock_value','total_payments']
+    email_features = ['from_messages','from_poi_to_this_person',\
+                    'from_this_person_to_poi','shared_receipt_with_poi', \
+                     'to_messages']                
+    features_list = poi_lable + financial_features + email_features
+    print "NO new features added!"
+    print "{0} features will be used in the machine learning \
+            algorithm including new created features.".format(len(features_list))
 
 print "============================="
 
-### Select k best features
-#k = 10 # number of features to choose
-#my_features_list = selectKFeatures(my_dataset, features_list, k)
-
-### Extract features and labels from dataset for local testing
-#data = featureFormat(my_dataset, my_features_list, sort_keys = True)
-#labels, features = targetFeatureSplit(data)
-#from sklearn import preprocessing
-#scaler = preprocessing.MinMaxScaler()
-#features = scaler.fit_transform(features)
-
-print "============================="
 ### Task 4: Try a varity of classifiers
 ### Please name your classifier clf for easy export below.
 ### Note that if you want to do PCA or other multi-stage operations,
@@ -137,6 +157,7 @@ def classifiers(clf_name):
                                                           max_features = 2,
                                                           max_depth = 5,
                                                           min_samples_split = 3,
+                                                          n_jobs = -1,
                                                           random_state=66))
         ])                                         
         return clf, my_features_list

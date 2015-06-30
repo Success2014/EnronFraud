@@ -26,7 +26,7 @@ f1_score, make_scorer
 
 
 def my_score():
-    return make_scorer(recall_score)
+    return make_scorer(recall_score, precision_score)
 
 
 
@@ -51,7 +51,7 @@ def tune_parameter_values(labels, features, folds, pipe_line,
             labels_test.append( labels[jj] )
     
     
-    clf = GridSearchCV(pipe_line, parameters, cv=3, scoring = 'recall')
+    clf = GridSearchCV(pipe_line, parameters, cv=3, scoring = my_score())
     t0 = time()
     print "Grid Searching ......"
     clf.fit(features_train, labels_train)    

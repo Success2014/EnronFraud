@@ -1,0 +1,9 @@
+1. Would you please check if the function my_score() in tune_parameter.py is correct?
+I want to use it to optimize precision and recall. If it is correct, if I change it to
+
+def my_score():
+    return make_scorer(recall_score, precision_score, f1_score)
+
+an error will be raised:
+
+ValueError: Can't handle mix of binary and continuous-multioutput
