@@ -75,7 +75,10 @@ def selectKFeatures(my_dataset, features_list, k):
     fea_sco_unsort = zip(features_list[1:],scores) # pair of feature and score
     fea_sco_sorted = list(reversed(sorted(fea_sco_unsort, key=lambda x: x[1])))
     kb_features_list = [y[0] for y in fea_sco_sorted[:k]]
+    kb_features_score = [round(y[1],3) for y in fea_sco_sorted[:k]]
     print "{0} best features selected: {1}".format(k, kb_features_list)
+    print "Scores of {0} best features: {1}".format(k, kb_features_score)
+    print "============================="
     return ['poi'] + kb_features_list
     
     

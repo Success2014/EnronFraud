@@ -1,0 +1,36 @@
+1.
+In tune_parameter.py, I have rewritten the two_scorer function.
+But in two_score function, only recall is returned.
+So, I'm not sure will GridSearchCV tune precision and recall be optimized simultaneously?
+
+2.
+If I want to tune more than 2 parameters, say: precision, recall and accuracy, should I do it this way?
+
+
+def Precision(y_true, y_pred):
+    prec = precision_score(y_true, y_pred)
+    print "Precision: %2.3f" % prec
+    return prec
+
+def Recall(y_true, y_pred):
+    reca = recall_score(y_true, y_pred)
+    print "Recall: %2.3f" % reca
+    return reca
+
+def Accuracy(y_true, y_pred):
+    accu = accuracy_score(y_true, y_pred)
+    return accu
+
+def three_score(y_true, y_pred):
+    Precision(y_true, y_pred)
+    Accuracy(y_true, y_pred)
+    score = Recall(y_true, y_pred)
+    return score
+
+def three_scorer():
+    return make_scorer(three_score, greater_is_better=True)
+
+
+clf = GridSearchCV(pipe_line, parameters, cv=3, scoring = three_scorer())
+
+

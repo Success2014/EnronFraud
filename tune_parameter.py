@@ -25,8 +25,21 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score,\
 f1_score, make_scorer
 
 
-def my_score():
-    return make_scorer(recall_score, precision_score)
+def Precision(y_true, y_pred):
+    prec = precision_score(y_true, y_pred)
+    print "Precision: %2.3f" % prec
+    return prec
+def Recall(y_true, y_pred):
+    reca = recall_score(y_true, y_pred)
+    print "Recall: %2.3f" % reca
+    return reca
+def two_score(y_true, y_pred):
+    Precision(y_true, y_pred)
+    score = Recall(y_true, y_pred)
+    return score
+
+def two_scorer():
+    return make_scorer(two_score, greater_is_better=True)
 
 
 
@@ -51,7 +64,7 @@ def tune_parameter_values(labels, features, folds, pipe_line,
             labels_test.append( labels[jj] )
     
     
-    clf = GridSearchCV(pipe_line, parameters, cv=3, scoring = my_score())
+    clf = GridSearchCV(pipe_line, parameters, cv = 2, scoring = two_scorer())
     t0 = time()
     print "Grid Searching ......"
     clf.fit(features_train, labels_train)    

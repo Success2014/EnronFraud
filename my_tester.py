@@ -9,7 +9,7 @@ import pickle
 import sys
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
-from sklearn.cross_validation import StratifiedShuffleSplit
+from sklearn.cross_validation import StratifiedShuffleSplit, StratifiedKFold
 sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
 from numpy import mean
@@ -23,6 +23,7 @@ def mytest_classifier(clf, dataset, feature_list, folds = 1000):
     data = featureFormat(dataset, feature_list, sort_keys = True)
     labels, features = targetFeatureSplit(data)
     cv = StratifiedShuffleSplit(labels, folds, random_state = 42)
+#    skf = StratifiedKFold(labels, n_folds=30)
     true_negatives = 0
     false_negatives = 0
     true_positives = 0
@@ -33,6 +34,7 @@ def mytest_classifier(clf, dataset, feature_list, folds = 1000):
     recall_list = []
     f1_list = []
     f2_list = []
+#    for train_idx, test_idx in skf:
     for train_idx, test_idx in cv: 
         features_train = []
         features_test  = []
