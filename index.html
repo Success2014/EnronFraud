@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Enronfraud : Python, Machine Learning, Scikit-Learn, ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Enronfraud</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Success2014/EnronFraud">View on GitHub</a>
+
+          <h1 id="project_title">Enronfraud</h1>
+          <h2 id="project_tagline">Python, Machine Learning, Scikit-Learn, </h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Success2014/EnronFraud/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Success2014/EnronFraud/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="introfrom-wikipedia" class="anchor" href="#introfrom-wikipedia" aria-hidden="true"><span class="octicon octicon-link"></span></a>Intro(<a href="https://en.wikipedia.org/wiki/Enron_scandal">From Wikipedia</a>)</h1>
+
+<p>The Enron scandal, revealed in October 2001, eventually led to the bankruptcy of the Enron Corporation, an American energy company based in Houston, Texas, and the de facto dissolution of Arthur Andersen, which was one of the five largest audit and accountancy partnerships in the world. In addition to being the largest bankruptcy reorganization in American history at that time, Enron was cited as the biggest audit failure.[1]</p>
+
+<p>Enron was formed in 1985 by Kenneth Lay after merging Houston Natural Gas and InterNorth. Several years later, when Jeffrey Skilling was hired, he developed a staff of executives that, by the use of accounting loopholes, special purpose entities, and poor financial reporting, were able to hide billions of dollars in debt from failed deals and projects. Chief Financial Officer Andrew Fastow and other executives not only misled Enron's board of directors and audit committee on high-risk accounting practices, but also pressured Andersen to ignore the issues.</p>
+
+<h1>
+<a id="project-goal" class="anchor" href="#project-goal" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project Goal</h1>
+
+<p>The goal of this project is to identify the employees from the Enron incorporation who committed fraud. I label this kind of employees as POIs. The dataset contains information about the employees. There are two kinds of information available for analysis. The first one is the financial information, including the salary information, bonus information, stock information, etc. The second one is the email information, including all the email texts, the number of total sending and receiving email, the number of email sent to the POIs, the number of email received from the POIs. </p>
+
+<p>Machine learning algorithms leverage these information to identify possible POIs. There were two outliers in the dataset. I identify them through inspecting the length of the name of the employees. Since one outlier is the summary information of all employees and the other is difficult to understand, I removed these two outliers.</p>
+
+<h1>
+<a id="feature-engineering" class="anchor" href="#feature-engineering" aria-hidden="true"><span class="octicon octicon-link"></span></a>Feature Engineering</h1>
+
+<p>I created 4 new features: ‘hasEmail’, ‘fromPoiRatio’, ‘toPoiRatio’, and ‘total_money’. ‘hasEmail’ indicates if an employee’s email address is available or not. Since I suspect that POI should be higher positions in the company, an email for them is necessary to do business, I add this feature. ‘fromPoiRatio’ and ‘toPoiRatio’ show the percentage of the email an employee receives from or sends to the POI out of all the emails he receives or sends, respectively. I add these two features since I think if an employee has high proportion of emails from or to POI, he is probably a POI. ‘total_money’ is the total money an employee gets from salary, bonus, all kinds of stocks, etc. I think this features could be useful since the only reason POIs commit fraud is money.</p>
+
+<h1>
+<a id="performance-evaluation" class="anchor" href="#performance-evaluation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Performance Evaluation</h1>
+
+<p>Two evaluation metrics I used are Precision and Recall. Through cross-validation, the average performance is Precision: 0.425, Recall: 0.447. </p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Enronfraud maintained by <a href="https://github.com/Success2014">Success2014</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-65242930-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
